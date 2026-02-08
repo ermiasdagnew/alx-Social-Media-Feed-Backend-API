@@ -14,15 +14,15 @@ SECRET_KEY = os.environ.get(
     "django-insecure-temp-key-for-build-only"
 )
 
-DEBUG = os.environ.get("DEBUG", "True") == "True"
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 # --------------------------------------------------
 # ALLOWED HOSTS
 # --------------------------------------------------
 ALLOWED_HOSTS = os.environ.get(
     "ALLOWED_HOSTS",
-    "localhost,127.0.0.1,alx-social-media-feed-backend.onrender.com"
-).split(",")
+    "localhost,127.0.0.1,alx-social-media-feed-backend-api.onrender.com"
+).replace(" ", "").split(",")
 
 # --------------------------------------------------
 # APPLICATIONS
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'graphene_django',
 
-    # Local
+    # Local apps
     'feed',
 ]
 
@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # --------------------------------------------------
-# AUTHENTICATION (🔥 THIS FIXES LOGIN 🔥)
+# AUTHENTICATION
 # --------------------------------------------------
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
@@ -150,3 +150,10 @@ REST_FRAMEWORK = {
 GRAPHENE = {
     "SCHEMA": "config.schema.schema",
 }
+
+# --------------------------------------------------
+# OPTIONAL: Add CORS if needed
+# --------------------------------------------------
+# INSTALLED_APPS += ['corsheaders']
+# MIDDLEWARE = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE
+# CORS_ALLOW_ALL_ORIGINS = True
